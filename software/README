@@ -2,7 +2,7 @@ This directory contains all the software that will run in production.
 Both the deployment scripts and the development environment depend on this.
 The integration tests also make use of the code in this directory.
 
-In the src subdirectory you will find the library code for the software.
+In the lib subdirectory you will find the library code for the software.
 In the www subdirectory you will find the web pages for the software.
 In the etc subdirectory you will find configuration files
 for the web server (Nginx) and for the application server (PHP-FPM).

@@ -3,7 +3,7 @@
        strictBinaryOperands="true"
        totallyTyped="true">
     <projectFiles>
-        <directory name="src" />
+        <directory name="lib" />
         <directory name="www" />
     </projectFiles>
     <issueHandlers>

@@ -74,6 +74,6 @@ in
 
         installPhase = ''
             mkdir "$out"
-            mv bin etc src vendor www "$out"
+            mv bin etc lib vendor www "$out"
         '';
     }
