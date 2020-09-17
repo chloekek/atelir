@@ -1,0 +1,8 @@
+This directory contains scripts for starting the development environment.
+The development environment is managed by Hivemind [1].
+
+The Nix derivation generates a Procfile file and wrapper for hivemind.
+This wrapper starts Hivemind with the generated Procfile file.
+Hivemind will run in the working directory of the caller.
+
+[1]: https://github.com/DarthSim/hivemind

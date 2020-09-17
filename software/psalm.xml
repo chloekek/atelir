@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<psalm ensureArrayStringOffsetsExist="true"
+       strictBinaryOperands="true"
+       totallyTyped="true">
+    <projectFiles>
+        <directory name="src" />
+        <directory name="www" />
+    </projectFiles>
+    <issueHandlers>
+        <!-- Allow calling \var_dump. -->
+        <ForbiddenCode errorLevel="suppress" />
+    </issueHandlers>
+</psalm>

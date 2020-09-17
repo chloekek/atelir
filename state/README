@@ -1,0 +1,2 @@
+This directory contains data stored on disk by the development environment.
+The directory structure is retained in Git, but the actual data is ignored.

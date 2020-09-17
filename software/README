@@ -1,0 +1,20 @@
+This directory contains all the software that will run in production.
+Both the deployment scripts and the development environment depend on this.
+The integration tests also make use of the code in this directory.
+
+In the src subdirectory you will find the library code for the software.
+In the www subdirectory you will find the web pages for the software.
+In the etc subdirectory you will find configuration files
+for the web server (Nginx) and for the application server (PHP-FPM).
+The Nix derivation generates wrappers for nginx and php-fpm.
+These wrappers pass the correct configuration file paths.
+
+The PHP program uses different files for different pages, found in www.
+Routes mapping URIs to file paths can be found in etc/nginx.conf.
+
+Composer [1] is used to generate a PHP autoloader [2].
+Psalm [3] is used for static type checking of PHP code.
+
+[1]: https://getcomposer.org/
+[2]: https://www.php.net/manual/en/language.oop5.autoload.php
+[3]: https://psalm.dev/
