@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -efuo pipefail
+
+# This script ensures a database and roles exist.
+# This script requires a running DBMS.
+
+export PGHOST=127.0.0.1
+export PGPORT={{ postgresqlPort }}
+
+export PGUSER=postgres
+export PGPASSWORD=postgres
+export PGDATABASE=postgres
+psql <<'SQL'
+    CREATE ROLE atelir_migrate LOGIN PASSWORD 'atelir_migrate';
+    CREATE ROLE atelir_software LOGIN PASSWORD 'atelir_software';
+    CREATE DATABASE atelir OWNER atelir_migrate;
+SQL
+
+export PGDATABASE=atelir
+psql <<'SQL'
+    DROP SCHEMA public;
+SQL

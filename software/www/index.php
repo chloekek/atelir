@@ -4,6 +4,10 @@ require_once __DIR__ . '/../lib/setup.php';
 
 use Atelir\Layout;
 
+$rows = $postgresql->query('SELECT version()');
+foreach ($rows as $row)
+    var_dump($row);
+
 final
 class FeaturedPost
 {

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -efuo pipefail
+
+# This script ensures a database cluster exists.
+# It does not create roles and databases.
+# That would require a running DBMS.
+
+datadir=state/postgresql/data
+
+if ! [[ -e $datadir ]]; then
+
+    # Create new database cluster.
+    initdb                        \
+        --pgdata="$datadir"       \
+        --username=postgres       \
+        --pwfile=<(echo postgres) \
+        --locale=en_US.UTF-8
+
+    # These are provided by the software derivation.
+    rm "$datadir"/pg_hba.conf     \
+       "$datadir"/pg_ident.conf   \
+       "$datadir"/postgresql.conf
+
+fi

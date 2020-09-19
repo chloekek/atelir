@@ -3,6 +3,7 @@
 let
     inherit (nixpkgs) callPackage;
     software = callPackage ./software {};
+    database = callPackage ./database {};
     development = callPackage ./development { inherit software; };
 in
-    { atelir = { inherit development software; }; }
+    { atelir = { inherit database development software; }; }

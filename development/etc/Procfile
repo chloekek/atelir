@@ -1,2 +1,3 @@
 nginx: exec {{ software }}/bin/nginx
 php-fpm: exec {{ software }}/bin/php-fpm
+postgres: exec {{ software }}/bin/postgres
