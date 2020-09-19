@@ -1,0 +1,77 @@
+$font-content: "Liberation Serif", serif;
+$font-display: "Montserrat", sans-serif;
+$font-interface: "Liberation Sans", sans-serif;
+$phi: 1.61803;
+
+h1, li, p, ul
+{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+body > header,
+body > section,
+body > footer
+{
+    margin: 1rem auto;
+    max-width: 50rem;
+}
+
+body > header
+{
+    display: grid;
+    font-family: $font-interface;
+    grid-template-areas: "logo search" "topics topics";
+
+    & > .-logo
+    {
+        font-size: 2rem;
+        grid-area: logo;
+    }
+
+    & > .-search { grid-area: search; }
+
+    & > .-topics
+    {
+        grid-area: topics;
+
+        & > ul > li
+        {
+            display: inline;
+            &:not(:first-child) { margin-left: 1rem; }
+        }
+    }
+}
+
+body > section
+{
+    & > .-title
+    {
+        font-family: $font-display;
+        font-size: 3rem;
+        font-weight: bold;
+        line-height: $phi * 1em;
+    }
+}
+
+body > footer { font-family: $font-interface; }
+
+.atelir-post
+{
+    & > h1
+    {
+        font-family: $font-display;
+        font-size: 2rem;
+        line-height: $phi * 1em;
+    }
+
+    & > p
+    {
+        font-family: $font-content;
+        line-height: $phi * 1em;
+    }
+}

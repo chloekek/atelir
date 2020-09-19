@@ -25,7 +25,7 @@ Layout::layout('Home', function(): void {
         new FeaturedPost('あの方が言われる事を', 'あの方が言われる事を、何でもしてあげて下さい。 いまはもうこの種のちょうは絶えてしまっている。 あら、申し訳ございません。 ああいう洗練された人々の中で、自分はまったく場違いな気がした。 またいつか風のように走るんだ。 いいからさっき盗ったモノを、カバンの中から出しなさい。 あなたは大学で何を勉強したいのですか。 ９０歳以上生きることは決してまれではない。 あばたもえくぼ」って言うからね。 いい手品師になろうと本気で思っている。'),
     ];
     foreach ($fps as $fp) {
-        echo '<article dir="auto">';
+        echo '<article class="atelir-post" dir="auto">';
         echo '<h1>';
         echo \htmlentities($fp->title);
         echo '</h1>';

@@ -1,4 +1,4 @@
-{ makeWrapper, nginx, php, stdenvNoCC }:
+{ makeWrapper, nginx, php, sassc, stdenvNoCC }:
 
 { ports }:
 
@@ -23,6 +23,7 @@ in
             makeWrapper
             phpWithExtensions.packages.composer
             phpWithExtensions.packages.psalm
+            sassc
         ];
 
         inherit nginx;
@@ -32,6 +33,9 @@ in
         phpfpmPort = ports.phpfpm;
 
         buildPhase = ''
+            # Compile Sass.
+            sassc --precision=10 www/style.scss www/style.css
+
             # Generate PHP autoloader.
             # This generates the vendor directory.
             composer update
