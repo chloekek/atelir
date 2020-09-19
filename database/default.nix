@@ -16,8 +16,8 @@ stdenvNoCC.mkDerivation {
     postgresqlPort = ports.postgresql;
 
     buildPhase = ''
-        # Substitute variables into setup script.
-        sed --in-place --file=- bin/setupDatabase <<SED
+        # Substitute variables into scripts.
+        sed --in-place --file=- bin/{{seed,setup}Database,migrateSchema} <<SED
             s:{{ postgresqlPort }}:$postgresqlPort:g
         SED
     '';
@@ -27,12 +27,22 @@ stdenvNoCC.mkDerivation {
 
         mv bin "$out"
 
+        ln --symbolic "$postgresql"/bin/psql "$out"/bin
+
         wrapProgram                           \
             "$out"/bin/ensureCluster          \
             --prefix PATH : "$postgresql"/bin
 
         wrapProgram                           \
             "$out"/bin/setupDatabase          \
+            --prefix PATH : "$postgresql"/bin
+
+        wrapProgram                           \
+            "$out"/bin/migrateSchema          \
+            --prefix PATH : "$postgresql"/bin
+
+        wrapProgram                           \
+            "$out"/bin/seedDatabase           \
             --prefix PATH : "$postgresql"/bin
     '';
 }

@@ -26,8 +26,6 @@ class Layout
             ?></form><?php
             ?><nav class="-topics"><?php
                 ?><ul><?php
-                    ?><li><a href="/topics/business">Business</a><?php
-                    ?><li><a href="/topics/charity">Charity</a><?php
                     ?><li><a href="/topics/gardening">Gardening</a><?php
                     ?><li><a href="/topics/technology">Technology</a><?php
                 ?></ul><?php

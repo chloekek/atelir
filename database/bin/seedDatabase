@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -efuo pipefail
+
+# This script inserts sample data into the database.
+# This script requires a running DBMS.
+# This script requires that migrations have already been run.
+
+export PGHOST=127.0.0.1
+export PGPORT={{ postgresqlPort }}
+export PGUSER=atelir_software
+export PGPASSWORD=atelir_software
+export PGDATABASE=atelir
+
+psql <<SQL
+    START TRANSACTION;
+
+    INSERT INTO atelir.users (slug, name)
+    VALUES ('chloekek', 'Chloé Kekoa');
+
+    INSERT INTO atelir.projects (owner_slug, slug)
+    VALUES ('chloekek', 'atelir');
+
+    INSERT INTO atelir.posts (owner_slug, project_slug, slug, title, content, published)
+    VALUES
+        ('chloekek', 'atelir', 'test-1', 'Test 1', 'This is test 1.', '2020-09-18'),
+        ('chloekek', 'atelir', 'test-2', 'Test 2', 'This is test 2.', '2020-09-19');
+
+    COMMIT WORK;
+SQL

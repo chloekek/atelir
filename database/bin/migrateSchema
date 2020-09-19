@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+set -efuo pipefail
+
+# This script sets up the database schema.
+# This script requires a running DBMS.
+
+export PGHOST=127.0.0.1
+export PGPORT={{ postgresqlPort }}
+export PGUSER=atelir_migrate
+export PGPASSWORD=atelir_migrate
+export PGDATABASE=atelir
+
+psql <<'SQL'
+    START TRANSACTION;
+
+    CREATE SCHEMA atelir;
+
+    CREATE DOMAIN atelir.slug
+        AS varchar
+        COLLATE "C"
+        CONSTRAINT slug_ck
+            CHECK ( VALUE ~ '^[a-z0-9-]+$' );
+
+    CREATE TABLE atelir.users (
+        slug atelir.slug,
+
+        name varchar NOT NULL,
+
+        CONSTRAINT users_pk
+            PRIMARY KEY (slug)
+    );
+
+    CREATE TABLE atelir.projects (
+        owner_slug atelir.slug,
+        slug       atelir.slug,
+
+        CONSTRAINT projects_pk
+            PRIMARY KEY (owner_slug, slug),
+
+        CONSTRAINT projects_owner_fk
+            FOREIGN KEY (owner_slug)
+            REFERENCES atelir.users (slug)
+            ON DELETE CASCADE
+    );
+
+    CREATE TABLE atelir.posts (
+        owner_slug   atelir.slug,
+        project_slug atelir.slug,
+        slug         atelir.slug,
+
+        title   varchar NOT NULL,
+        content varchar NOT NULL,
+
+        published timestamptz,
+
+        CONSTRAINT posts_pk
+            PRIMARY KEY (owner_slug, project_slug, slug),
+
+        CONSTRAINT posts_project_fk
+            FOREIGN KEY (owner_slug, project_slug)
+            REFERENCES atelir.projects (owner_slug, slug)
+            ON DELETE CASCADE
+    );
+
+    CREATE INDEX posts_published_ix
+        ON atelir.posts
+        (published);
+
+    GRANT USAGE
+        ON SCHEMA atelir
+        TO atelir_software;
+
+    GRANT SELECT, INSERT, UPDATE, DELETE
+        ON TABLE atelir.users, atelir.projects, atelir.posts
+        TO atelir_software;
+
+    COMMIT WORK;
+SQL
