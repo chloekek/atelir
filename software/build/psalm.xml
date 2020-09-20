@@ -4,7 +4,6 @@
        totallyTyped="true">
     <projectFiles>
         <directory name="lib" />
-        <directory name="www" />
     </projectFiles>
     <issueHandlers>
         <!-- Allow calling \var_dump. -->

@@ -7,7 +7,7 @@ trait HasPostUri
     final public
     function postUri(): string
     {
-        return '/posts' .
+        return '/post' .
                '/' . $this->ownerSlug .
                '/' . $this->projectSlug .
                '/' . $this->slug;

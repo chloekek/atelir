@@ -22,6 +22,7 @@ in
 
         buildInputs = [
             makeWrapper
+            phpWithExtensions
             phpWithExtensions.packages.composer
             phpWithExtensions.packages.psalm
             sassc
@@ -36,13 +37,13 @@ in
         postgresqlPort = ports.postgresql;
 
         buildPhase = ''
-            # Substitute variables into software setup file.
-            sed --in-place --file=- lib/setup.php <<SED
+            # Substitute variables into facilities class.
+            sed --in-place --file=- lib/Facilities.php <<SED
                 s:{{ postgresqlPort }}:$postgresqlPort:g
             SED
 
             # Substitute variables into Nginx configuration file.
-            sed --in-place --file=- etc/nginx.conf <<SED
+            sed --in-place --file=- etc/nginx.conf.php <<SED
                 s:{{ nginxPort }}:$nginxPort:g
                 s:{{ phpfpmPort }}:$phpfpmPort:g
                 s:{{ out }}:$out:g
@@ -59,15 +60,18 @@ in
                 s:{{ out }}:$out:g
             SED
 
+            # Process Nginx configuration file with PHP.
+            php etc/nginx.conf.php > etc/nginx.conf
+
             # Compile Sass.
             sassc --precision=10 www/style.scss www/style.css
 
             # Generate PHP autoloader.
             # This generates the vendor directory.
-            composer update
+            COMPOSER=build/composer.json composer update
 
             # Type-check PHP source code.
-            psalm
+            psalm --config=build/psalm.xml
 
             # Generate wrapper for nginx.
             makeWrapper                           \

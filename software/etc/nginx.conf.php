@@ -1,3 +1,7 @@
+# This file is generated using PHP.
+# PHP is used as a templating language for this file.
+# Do not confuse this with our use of PHP for implementing the application.
+
 # We use either Hivemind or systemd.
 # We do not want Nginx to daemonize itself.
 daemon off;
@@ -30,28 +34,40 @@ http
     {
         listen {{ nginxPort }};
 
-        # This is the list of routes.
-        # Each rewrite line defines a route.
+        # BEGIN OF ROUTES
+
+        <?php
+            function route(string $pat, string $cls, int $nargs): string
+            {
+                $arguments = array_map(fn($i) => "&arguments[]=\$$i",
+                                       $nargs > 0 ? range(1, $nargs) : []);
+                return "rewrite $pat /index.php?mainClass=$cls" .
+                       implode('', $arguments) .
+                       "? last;\n";
+            }
+        ?>
+
+        <?= route('^/$', 'Atelir\ReadFrontPage\Web', 0) ?>
+        <?= route('^/avatar/([a-z0-9-]+)$', 'Atelir\RenderAvatar\Web', 1) ?>
+        <?= route('^/post/([a-z0-9-]+)/([a-z0-9-]+)/([a-z0-9-]+)$', 'Atelir\ReadPost\Web', 3) ?>
+
         rewrite ^/style.css$ /style.css last;
-        rewrite ^/$ /index.php last;
-        rewrite ^/avatar/([a-z0-9-]+)$ /avatar.php?ownerSlug=$1? last;
-        rewrite ^/posts/([a-z0-9-]+)/([a-z0-9-]+)/([a-z0-9-]+)$ /post.php?ownerSlug=$1&projectSlug=$2&slug=$3? last;
         return 404;
 
-        location = /style.css
+        # END OF ROUTES
+
+        location ~ \.css$
         {
             root {{ out }}/www;
         }
 
-        # Delegate request handling to the application server.
-        # The application server we use is PHP-FPM.
-        location ~ \.php$
+        location = /index.php
         {
             fastcgi_param CONTENT_LENGTH $content_length;
             fastcgi_param CONTENT_TYPE   $content_type;
             fastcgi_param QUERY_STRING   $query_string;
             fastcgi_param REQUEST_METHOD $request_method;
-            fastcgi_param SCRIPT_FILENAME {{ out }}/www$uri;
+            fastcgi_param SCRIPT_FILENAME {{ out }}/www/index.php;
             fastcgi_pass 127.0.0.1:{{ phpfpmPort }};
         }
     }
