@@ -4,6 +4,7 @@ require_once __DIR__ . '/../lib/setup.php';
 
 use Atelir\HasPostUri;
 use Atelir\Layout;
+use Atelir\RenderPost;
 
 final
 class FeaturedPost
@@ -56,15 +57,13 @@ $fps = \call_user_func(
 
 Layout::layout('Home', function() use($fps): void {
     foreach ($fps as $fp) {
-        ?><article class="atelir-post" dir="auto"><?php
-            ?><h1><?php
-                ?><a href="<?= \htmlentities($fp->postUri()) ?>"><?php
-                    ?><?= \htmlentities($fp->title) ?><?php
-                ?></a><?php
-            ?></h1><?php
-            ?><p><?php
-                ?><?= \htmlentities($fp->content) ?><?php
-            ?></p><?php
-        ?></article><?php
+        RenderPost::renderPost(
+            $fp->postUri(),
+            $fp->title,
+            $fp->content,
+            $fp->ownerSlug,
+            $fp->ownerSlug,
+            $fp->projectSlug,
+        );
     }
 });

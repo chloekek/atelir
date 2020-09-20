@@ -3,6 +3,7 @@ declare(strict_types = 1);
 require_once __DIR__ . '/../lib/setup.php';
 
 use Atelir\Layout;
+use Atelir\RenderPost;
 
 $ownerSlug   = \strval($_GET['ownerSlug'] ?? '');
 $projectSlug = \strval($_GET['projectSlug'] ?? '');
@@ -39,8 +40,13 @@ assert($row[0] !== NULL);
 assert($row[1] !== NULL);
 $p = new Post($row[0], $row[1]);
 
-Layout::layout($p->title, function() use($p): void {
-    ?><p><?php
-        ?><?= \htmlentities($p->content) ?><?php
-    ?></p><?php
+Layout::layout($p->title, function() use($p, $ownerSlug, $projectSlug): void {
+    RenderPost::renderPost(
+        NULL,
+        $p->title,
+        $p->content,
+        $ownerSlug,
+        $ownerSlug,
+        $projectSlug,
+    );
 });

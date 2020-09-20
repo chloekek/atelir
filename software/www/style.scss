@@ -1,7 +1,12 @@
-$font-content: "Liberation Serif", serif;
-$font-display: "Montserrat", sans-serif;
-$font-interface: "Liberation Sans", sans-serif;
-$phi: 1.61803;
+$font-content: FreeSerif, serif;
+$font-display: Montserrat, sans-serif;
+$font-interface: FreeSans, sans-serif;
+
+$size-content: 16px;
+$size-interface: 12px;
+
+$line-height: 18px;
+$page-width: 960px;
 
 h1, li, p, ul
 {
@@ -13,65 +18,122 @@ h1, li, p, ul
     vertical-align: baseline;
 }
 
-body > header,
-body > section,
-body > footer
+body
 {
-    margin: 1rem auto;
-    max-width: 50rem;
+    background-color: #ffffff;
+    background-image: linear-gradient(silver 1px, white 1px);
+    background-size: 1px 18px;
 }
 
-body > header
+.atelir-header,
+.atelir-content,
+.atelir-footer
+{
+    margin: $line-height auto;
+    max-width: $page-width;
+}
+
+.atelir-header
 {
     display: grid;
-    font-family: $font-interface;
     grid-template-areas: "logo search" "topics topics";
 
     & > .-logo
     {
-        font-size: 2rem;
+        font-family: $font-interface;
+        font-size: 2 * $size-interface;
         grid-area: logo;
+        line-height: 2 * $line-height;
     }
 
     & > .-search { grid-area: search; }
 
     & > .-topics
     {
+        font-family: $font-interface;
+        font-size: $size-interface;
         grid-area: topics;
+        line-height: $line-height;
 
         & > ul > li
         {
             display: inline;
-            &:not(:first-child) { margin-left: 1rem; }
+            &:not(:first-child):before { content: " · "; }
         }
     }
 }
 
-body > section
+.atelir-footer
 {
-    & > .-title
-    {
-        font-family: $font-display;
-        font-size: 3rem;
-        font-weight: bold;
-        line-height: $phi * 1em;
-    }
+    font-family: $font-interface;
+    font-size: $size-interface;
+    line-height: $line-height;
 }
-
-body > footer { font-family: $font-interface; }
 
 .atelir-post
 {
-    & > h1
+    display: grid;
+    gap: $line-height;
+    grid-template-areas: "content metadata";
+    grid-template-columns: 9fr 3fr;
+
+    .-metadata
     {
-        font-family: $font-display;
-        font-size: 2rem;
-        line-height: $phi * 1em;
+        display: grid;
+        font-family: $font-interface;
+        font-size: $size-interface;
+        grid-area: metadata;
+        grid-template-areas:
+            "padding-top    padding-top"
+            "owner-avatar   owner-name"
+            "owner-avatar   project-name"
+            "padding-middle padding-middle"
+            "about-project  about-project";
+        grid-template-columns:
+            2 * $line-height
+            auto;
+        grid-template-rows:
+            $line-height / 2
+            $line-height
+            $line-height
+            $line-height / 2
+            auto;
+        line-height: $line-height;
+
+        & > .-owner-avatar  { grid-area: owner-avatar; }
+        & > .-owner-name    { grid-area: owner-name; }
+        & > .-project-name  { grid-area: project-name; }
+        & > .-about-project { grid-area: about-project; }
+
+        & > .-owner-avatar
+        {
+            height: 2 * $line-height;
+            width: 2 * $line-height;
+        }
+
+        & > .-owner-name,
+        & > .-project-name
+        {
+            padding-left: $line-height / 2;
+        }
     }
 
-    & > p
+    .-content
     {
-        font-family: $font-content;
-        line-height: $phi * 1em;
+        grid-area: content;
+
+        & > h1
+        {
+            font-family: $font-display;
+            font-size: 3 * $size-interface;
+            line-height: 3 * $line-height;
+        }
+
+        & > p
+        {
+            font-family: $font-content;
+            font-size: $size-content;
+            line-height: $line-height;
+        }
     }
 }

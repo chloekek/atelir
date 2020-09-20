@@ -18,7 +18,7 @@ class Layout
         ?><meta charset="utf-8"><?php
         ?><title><?= \htmlentities($title) ?> &mdash; Atelir</title><?php
         ?><link rel="stylesheet" href="/style.css"><?php
-        ?><header><?php
+        ?><header class="atelir-header"><?php
             ?><a class="-logo" href="/">Atelir</a><?php
             ?><form class="-search" action="/search"><?php
                 ?><input type="search" name="q"><?php
@@ -31,11 +31,10 @@ class Layout
                 ?></ul><?php
             ?></nav><?php
         ?></header><?php
-        ?><section><?php
-            ?><h1 class="-title"><?= \htmlentities($title) ?></h1><?php
+        ?><section class="atelir-content"><?php
             $body();
         ?></section><?php
-        ?><footer><?php
+        ?><footer class="atelir-footer"><?php
             ?><nav class="-miscellaneous"><?php
                 ?><ul><?php
                     ?><li><a href="/about">About</a><?php

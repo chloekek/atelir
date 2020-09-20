@@ -12,6 +12,8 @@ export PGUSER=atelir_software
 export PGPASSWORD=atelir_software
 export PGDATABASE=atelir
 
+lipsum='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id dapibus tortor. Donec ac congue augue. Integer nunc sem, condimentum vitae lorem semper, tempor pellentesque elit. Mauris sit amet accumsan nunc, id sodales velit. Ut ultrices, tellus non rutrum scelerisque, tellus turpis ullamcorper arcu, nec faucibus erat libero vitae sapien. Aenean id ornare libero. Sed consectetur nisl et elit sagittis bibendum. Nam sed fringilla felis, et pretium velit. Proin nulla nisi, suscipit non odio vitae, facilisis scelerisque lorem. Phasellus suscipit volutpat turpis, id facilisis nunc gravida a.'
+
 psql <<SQL
     START TRANSACTION;
 
@@ -23,7 +25,7 @@ psql <<SQL
 
     INSERT INTO atelir.posts (owner_slug, project_slug, slug, title, content, published)
     VALUES
-        ('chloekek', 'atelir', 'test-1', 'Test 1', 'This is test 1.', '2020-09-18'),
+        ('chloekek', 'atelir', 'lorem-ipsum', 'Lorem ipsum dolor sit amet', '$lipsum', '2020-09-18'),
         ('chloekek', 'atelir', 'test-2', 'Test 2', 'This is test 2.', '2020-09-19');
 
     COMMIT WORK;
