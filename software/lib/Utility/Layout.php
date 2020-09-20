@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Atelir;
+namespace Atelir\Utility;
 
 final
 class Layout

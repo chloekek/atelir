@@ -1,0 +1,2 @@
+This directory contains code that is not specific to any feature.
+Code that is specific to a feature must go in the directory for that feature.

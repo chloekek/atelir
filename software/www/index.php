@@ -12,7 +12,7 @@ set_error_handler(
 require_once __DIR__ . '/../vendor/autoload.php';
 
 # Assemble facilities.
-$facilities = new Atelir\Facilities();
+$facilities = new Atelir\Utility\Facilities();
 
 # Invoke main method.
 $mainClass = $_GET['mainClass'];

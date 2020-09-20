@@ -1,7 +1,11 @@
 <?php
 declare(strict_types = 1);
-namespace Atelir;
+namespace Atelir\Utility;
 
+/**
+ * Use this trait in a class that has the necessary fields.
+ * This gives you a method to generate the URI of a port.
+ */
 trait HasPostUri
 {
     final public

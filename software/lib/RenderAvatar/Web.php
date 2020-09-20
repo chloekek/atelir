@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace Atelir\RenderAvatar;
 
-use Atelir\Facilities;
+use Atelir\Utility\Facilities;
 
 final
 class Web

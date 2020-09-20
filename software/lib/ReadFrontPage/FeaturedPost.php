@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace Atelir\ReadFrontPage;
 
-use Atelir\HasPostUri;
+use Atelir\Utility\HasPostUri;
 
 final
 class FeaturedPost

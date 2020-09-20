@@ -2,9 +2,9 @@
 declare(strict_types = 1);
 namespace Atelir\ReadPost;
 
-use Atelir\Facilities;
-use Atelir\Layout;
-use Atelir\RenderPost;
+use Atelir\Utility\Facilities;
+use Atelir\Utility\Layout;
+use Atelir\Utility\RenderPost;
 
 final
 class Web

@@ -38,7 +38,7 @@ in
 
         buildPhase = ''
             # Substitute variables into facilities class.
-            sed --in-place --file=- lib/Facilities.php <<SED
+            sed --in-place --file=- lib/Utility/Facilities.php <<SED
                 s:{{ postgresqlPort }}:$postgresqlPort:g
             SED
 
