@@ -36,4 +36,16 @@ class Postgresql
             yield $row;
         }
     }
+
+    /**
+     * @param array<?string> $params
+     * @return ?array<int,?string>
+     */
+    public
+    function queryFirst(string $sql, array $params = []): ?array
+    {
+        foreach ($this->query($sql, $params) as $row)
+            return $row;
+        return NULL;
+    }
 }
