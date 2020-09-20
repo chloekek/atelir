@@ -11,8 +11,8 @@ class FeaturedPost
     use CanRenderPost;
     use HasPostUri;
 
-    public string $ownerSlug;
-    public string $ownerName;
+    public string $userSlug;
+    public string $userName;
     public string $projectSlug;
     public string $projectName;
     public string $slug;
@@ -21,8 +21,8 @@ class FeaturedPost
 
     public
     function __construct(
-        string $ownerSlug,
-        string $ownerName,
+        string $userSlug,
+        string $userName,
         string $projectSlug,
         string $projectName,
         string $slug,
@@ -30,8 +30,8 @@ class FeaturedPost
         string $content
     )
     {
-        $this->ownerSlug = $ownerSlug;
-        $this->ownerName = $ownerName;
+        $this->userSlug = $userSlug;
+        $this->userName = $userName;
         $this->projectSlug = $projectSlug;
         $this->projectName = $projectName;
         $this->slug = $slug;

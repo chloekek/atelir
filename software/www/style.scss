@@ -85,8 +85,8 @@ body
         grid-area: metadata;
         grid-template-areas:
             "padding-top    padding-top"
-            "owner-avatar   owner-name"
-            "owner-avatar   project-name"
+            "user-avatar    user-name"
+            "user-avatar    project-name"
             "padding-middle padding-middle"
             "about-project  about-project";
         grid-template-columns:
@@ -100,18 +100,18 @@ body
             auto;
         line-height: $line-height;
 
-        & > .-owner-avatar  { grid-area: owner-avatar; }
-        & > .-owner-name    { grid-area: owner-name; }
+        & > .-user-avatar   { grid-area: user-avatar; }
+        & > .-user-name     { grid-area: user-name; }
         & > .-project-name  { grid-area: project-name; }
         & > .-about-project { grid-area: about-project; }
 
-        & > .-owner-avatar
+        & > .-user-avatar
         {
             height: 2 * $line-height;
             width: 2 * $line-height;
         }
 
-        & > .-owner-name,
+        & > .-user-name,
         & > .-project-name
         {
             padding-left: $line-height / 2;

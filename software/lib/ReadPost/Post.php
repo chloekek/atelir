@@ -9,23 +9,23 @@ class Post
 {
     use CanRenderPost;
 
-    public string $ownerSlug;
-    public string $ownerName;
+    public string $userSlug;
+    public string $userName;
     public string $projectName;
     public string $title;
     public string $content;
 
     public
     function __construct(
-        string $ownerSlug,
-        string $ownerName,
+        string $userSlug,
+        string $userName,
         string $projectName,
         string $title,
         string $content
     )
     {
-        $this->ownerSlug = $ownerSlug;
-        $this->ownerName = $ownerName;
+        $this->userSlug = $userSlug;
+        $this->userName = $userName;
         $this->projectName = $projectName;
         $this->title = $title;
         $this->content = $content;

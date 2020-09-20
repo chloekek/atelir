@@ -23,31 +23,33 @@ psql <<'SQL'
             CHECK ( VALUE ~ '^[a-z0-9-]+$' );
 
     CREATE TABLE atelir.users (
-        slug atelir.slug,
+        user_slug atelir.slug,
 
         name varchar NOT NULL,
 
         CONSTRAINT users_pk
-            PRIMARY KEY (slug)
+            PRIMARY KEY (user_slug)
     );
 
     CREATE TABLE atelir.projects (
-        owner_slug atelir.slug,
-        slug       atelir.slug,
+        user_slug    atelir.slug,
+        project_slug atelir.slug,
+
+        name varchar NOT NULL,
 
         CONSTRAINT projects_pk
-            PRIMARY KEY (owner_slug, slug),
+            PRIMARY KEY (user_slug, project_slug),
 
         CONSTRAINT projects_owner_fk
-            FOREIGN KEY (owner_slug)
-            REFERENCES atelir.users (slug)
+            FOREIGN KEY (user_slug)
+            REFERENCES atelir.users (user_slug)
             ON DELETE CASCADE
     );
 
     CREATE TABLE atelir.posts (
-        owner_slug   atelir.slug,
+        user_slug    atelir.slug,
         project_slug atelir.slug,
-        slug         atelir.slug,
+        post_slug    atelir.slug,
 
         title   varchar NOT NULL,
         content varchar NOT NULL,
@@ -55,11 +57,11 @@ psql <<'SQL'
         published timestamptz,
 
         CONSTRAINT posts_pk
-            PRIMARY KEY (owner_slug, project_slug, slug),
+            PRIMARY KEY (user_slug, project_slug, post_slug),
 
         CONSTRAINT posts_project_fk
-            FOREIGN KEY (owner_slug, project_slug)
-            REFERENCES atelir.projects (owner_slug, slug)
+            FOREIGN KEY (user_slug, project_slug)
+            REFERENCES atelir.projects (user_slug, project_slug)
             ON DELETE CASCADE
     );
 

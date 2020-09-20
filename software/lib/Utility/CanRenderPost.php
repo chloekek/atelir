@@ -13,8 +13,8 @@ trait CanRenderPost
     {
         ?><article class="atelir-post" dir="auto"><?php
             ?><aside class="-metadata"><?php
-                ?><img class="-owner-avatar" src="/avatar/<?= \htmlentities($this->ownerSlug) ?>"><?php
-                ?><p class="-owner-name"><?= \htmlentities($this->ownerName) ?></p><?php
+                ?><img class="-user-avatar" src="/avatar/<?= \htmlentities($this->userSlug) ?>"><?php
+                ?><p class="-user-name"><?= \htmlentities($this->userName) ?></p><?php
                 ?><p class="-project-name"><?= \htmlentities($this->projectName) ?></p><?php
                 ?><p class="-about-project">Hello, world!</p><?php
             ?></aside><?php

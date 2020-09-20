@@ -21,13 +21,20 @@ class Web
     function main(string $ownerSlug, string $projectSlug, string $slug): void
     {
         $row = $this->facilities->postgresql->queryFirst('
-            SELECT title, content
-            FROM atelir.posts
+            SELECT
+                users.name,
+                projects.name,
+                posts.title,
+                posts.content
+            FROM
+                atelir.posts
+                JOIN atelir.users USING (user_slug)
+                JOIN atelir.projects USING (user_slug, project_slug)
             WHERE
-                published IS NOT NULL
-                AND owner_slug = $1
+                posts.published IS NOT NULL
+                AND user_slug = $1
                 AND project_slug = $2
-                AND slug = $3
+                AND posts.post_slug = $3
         ', [$ownerSlug, $projectSlug, $slug]);
 
         if ($row === NULL)
@@ -35,7 +42,9 @@ class Web
 
         assert($row[0] !== NULL);
         assert($row[1] !== NULL);
-        $p = new Post($ownerSlug, $ownerSlug, $projectSlug, $row[0], $row[1]);
+        assert($row[2] !== NULL);
+        assert($row[3] !== NULL);
+        $p = new Post($ownerSlug, $row[0], $row[1], $row[2], $row[3]);
 
         Layout::layout($p->title, function() use($p): void {
             $p->renderPost();

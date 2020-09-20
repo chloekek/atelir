@@ -12,7 +12,7 @@ trait HasPostUri
     function postUri(): string
     {
         return '/post' .
-               '/' . $this->ownerSlug .
+               '/' . $this->userSlug .
                '/' . $this->projectSlug .
                '/' . $this->slug;
     }

@@ -23,9 +23,9 @@ class Web
     }
 
     public
-    function main(string $ownerSlug): void
+    function main(string $userSlug): void
     {
-        $hash = \sha1($ownerSlug, TRUE);
+        $hash = \sha1($userSlug, TRUE);
 
         \header('Content-Type: image/svg+xml');
 

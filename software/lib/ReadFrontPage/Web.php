@@ -22,16 +22,19 @@ class Web
     {
         $rows = $this->facilities->postgresql->query('
             SELECT
-                owner_slug,
-                owner_slug, -- TODO: Name.
+                user_slug,
+                users.name,
                 project_slug,
-                project_slug, -- TODO: Name.
-                slug,
-                title,
-                content
-            FROM atelir.posts
-            WHERE published IS NOT NULL
-            ORDER BY published DESC
+                projects.name,
+                posts.post_slug,
+                posts.title,
+                posts.content
+            FROM
+                atelir.posts
+                JOIN atelir.users USING (user_slug)
+                JOIN atelir.projects USING (user_slug, project_slug)
+            WHERE posts.published IS NOT NULL
+            ORDER BY posts.published DESC
         ');
 
         $fps = \call_user_func(

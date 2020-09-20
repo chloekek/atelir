@@ -17,13 +17,13 @@ lipsum='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id dapibus 
 psql <<SQL
     START TRANSACTION;
 
-    INSERT INTO atelir.users (slug, name)
+    INSERT INTO atelir.users (user_slug, name)
     VALUES ('chloekek', 'Chloé Kekoa');
 
-    INSERT INTO atelir.projects (owner_slug, slug)
-    VALUES ('chloekek', 'atelir');
+    INSERT INTO atelir.projects (user_slug, project_slug, name)
+    VALUES ('chloekek', 'atelir', 'Atelir');
 
-    INSERT INTO atelir.posts (owner_slug, project_slug, slug, title, content, published)
+    INSERT INTO atelir.posts (user_slug, project_slug, post_slug, title, content, published)
     VALUES
         ('chloekek', 'atelir', 'lorem-ipsum', 'Lorem ipsum dolor sit amet', '$lipsum', '2020-09-18'),
         ('chloekek', 'atelir', 'test-2', 'Test 2', 'This is test 2.', '2020-09-19');
