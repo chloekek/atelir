@@ -35,17 +35,10 @@ class Web
 
         assert($row[0] !== NULL);
         assert($row[1] !== NULL);
-        $p = new Post($row[0], $row[1]);
+        $p = new Post($ownerSlug, $ownerSlug, $projectSlug, $row[0], $row[1]);
 
-        Layout::layout($p->title, function() use($p, $ownerSlug, $projectSlug): void {
-            RenderPost::renderPost(
-                NULL,
-                $p->title,
-                $p->content,
-                $ownerSlug,
-                $ownerSlug,
-                $projectSlug,
-            );
+        Layout::layout($p->title, function() use($p): void {
+            $p->renderPost();
         });
     }
 }

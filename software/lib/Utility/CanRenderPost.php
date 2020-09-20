@@ -2,29 +2,20 @@
 declare(strict_types = 1);
 namespace Atelir\Utility;
 
-final
-class RenderPost
+/**
+ * Use this trait in a class that has the necessary fields.
+ * This gives you a method to render a post.
+ */
+trait CanRenderPost
 {
-    private
-    function __construct()
-    {
-    }
-
-    public static
-    function renderPost(
-        ?string $postUri,
-        string $title,
-        string $content,
-        string $ownerSlug,
-        string $ownerName,
-        string $projectName
-    ): void
+    final public
+    function renderPost(?string $postUri = NULL): void
     {
         ?><article class="atelir-post" dir="auto"><?php
             ?><aside class="-metadata"><?php
-                ?><img class="-owner-avatar" src="/avatar/<?= \htmlentities($ownerSlug) ?>"><?php
-                ?><p class="-owner-name"><?= \htmlentities($ownerName) ?></p><?php
-                ?><p class="-project-name"><?= \htmlentities($projectName) ?></p><?php
+                ?><img class="-owner-avatar" src="/avatar/<?= \htmlentities($this->ownerSlug) ?>"><?php
+                ?><p class="-owner-name"><?= \htmlentities($this->ownerName) ?></p><?php
+                ?><p class="-project-name"><?= \htmlentities($this->projectName) ?></p><?php
                 ?><p class="-about-project">Hello, world!</p><?php
             ?></aside><?php
             ?><section class="-content"><?php
@@ -32,13 +23,13 @@ class RenderPost
                     ?><? if ($postUri !== NULL): ?><?php
                         ?><a href="<?= \htmlentities($postUri) ?>"><?php
                     ?><? endif; ?><?php
-                    ?><?= \htmlentities($title) ?><?php
+                    ?><?= \htmlentities($this->title) ?><?php
                     ?><? if ($postUri !== NULL): ?><?php
                         ?></a><?php
                     ?><? endif; ?><?php
                 ?></h1><?php
                 ?><p><?php
-                    ?><?= \htmlentities($content) ?><?php
+                    ?><?= \htmlentities($this->content) ?><?php
                 ?></p><?php
             ?></section><?php
         ?></article><?php

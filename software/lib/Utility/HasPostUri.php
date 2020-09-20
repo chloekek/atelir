@@ -4,7 +4,7 @@ namespace Atelir\Utility;
 
 /**
  * Use this trait in a class that has the necessary fields.
- * This gives you a method to generate the URI of a port.
+ * This gives you a method to generate the URI of a post.
  */
 trait HasPostUri
 {

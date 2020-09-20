@@ -21,7 +21,14 @@ class Web
     function main(): void
     {
         $rows = $this->facilities->postgresql->query('
-            SELECT owner_slug, project_slug, slug, title, content
+            SELECT
+                owner_slug,
+                owner_slug, -- TODO: Name.
+                project_slug,
+                project_slug, -- TODO: Name.
+                slug,
+                title,
+                content
             FROM atelir.posts
             WHERE published IS NOT NULL
             ORDER BY published DESC
@@ -36,12 +43,16 @@ class Web
                     assert($row[2] !== NULL);
                     assert($row[3] !== NULL);
                     assert($row[4] !== NULL);
+                    assert($row[5] !== NULL);
+                    assert($row[6] !== NULL);
                     yield new FeaturedPost(
                         $row[0],
                         $row[1],
                         $row[2],
                         $row[3],
                         $row[4],
+                        $row[5],
+                        $row[6],
                     );
                 }
             },
@@ -49,14 +60,7 @@ class Web
 
         Layout::layout('Home', function() use($fps): void {
             foreach ($fps as $fp) {
-                RenderPost::renderPost(
-                    $fp->postUri(),
-                    $fp->title,
-                    $fp->content,
-                    $fp->ownerSlug,
-                    $fp->ownerSlug,
-                    $fp->projectSlug,
-                );
+                $fp->renderPost($fp->postUri());
             }
         });
     }
