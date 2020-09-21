@@ -2,6 +2,11 @@
 declare(strict_types = 1);
 namespace Atelir\Utility;
 
+/**
+ * This class implements the layout.
+ * The layout renders the stuff around the page content.
+ * This includes the HTML boilerplate, the header, and the footer.
+ */
 final
 class Layout
 {
@@ -31,9 +36,9 @@ class Layout
                 ?></ul><?php
             ?></nav><?php
         ?></header><?php
-        ?><section class="atelir-content"><?php
+        ?><main class="atelir-content"><?php
             $body();
-        ?></section><?php
+        ?></main><?php
         ?><footer class="atelir-footer"><?php
             ?><nav class="-miscellaneous"><?php
                 ?><ul><?php
