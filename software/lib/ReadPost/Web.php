@@ -18,34 +18,16 @@ class Web
     }
 
     public
-    function main(string $ownerSlug, string $projectSlug, string $slug): void
+    function main(
+        string $userSlug,
+        string $projectSlug,
+        string $postSlug
+    ): void
     {
-        $row = $this->facilities->postgresql->queryFirst('
-            SELECT
-                users.name,
-                projects.name,
-                posts.title,
-                posts.content
-            FROM
-                atelir.posts
-                JOIN atelir.users USING (user_slug)
-                JOIN atelir.projects USING (user_slug, project_slug)
-            WHERE
-                posts.published IS NOT NULL
-                AND user_slug = $1
-                AND project_slug = $2
-                AND posts.post_slug = $3
-        ', [$ownerSlug, $projectSlug, $slug]);
-
-        if ($row === NULL)
-            die('TODO: 404');
-
-        assert($row[0] !== NULL);
-        assert($row[1] !== NULL);
-        assert($row[2] !== NULL);
-        assert($row[3] !== NULL);
-        $p = new Post($ownerSlug, $row[0], $row[1], $row[2], $row[3]);
-
+        $pg = $this->facilities->postgresql;
+        $p = Post::fetch($pg, $userSlug, $projectSlug, $postSlug);
+        if ($p === NULL)
+            die('TODO: Not Found');
         Layout::layout($p->title, function() use($p): void {
             $p->renderPost();
         });
