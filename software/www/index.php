@@ -9,7 +9,7 @@ set_error_handler(
 );
 
 # Set up the autoloader.
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../supplier/autoload.php';
 
 # Assemble facilities.
 $facilities = new Atelir\Utility\Facilities();

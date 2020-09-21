@@ -4,6 +4,9 @@
             "Atelir\\": [ "lib/" ]
         }
     },
+    "config": {
+        "vendor-dir": "supplier"
+    },
     "repositories": [
         { "packagist": false }
     ]

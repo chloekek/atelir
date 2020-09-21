@@ -67,7 +67,7 @@ in
             sassc --precision=10 www/style.scss www/style.css
 
             # Generate PHP autoloader.
-            # This generates the vendor directory.
+            # This generates the supplier directory.
             COMPOSER=build/composer.json composer update
 
             # Type-check PHP source code.
@@ -104,6 +104,6 @@ in
 
         installPhase = ''
             mkdir "$out"
-            mv bin etc lib vendor www "$out"
+            mv bin etc lib supplier www "$out"
         '';
     }
