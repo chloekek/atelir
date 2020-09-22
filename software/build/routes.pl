@@ -11,7 +11,7 @@ use warnings;
 # It passes the given number of arguments from the pattern’s capture groups.
 sub route
 {
-    my ($meth, $pat, $cls, $nargs) = @_;
+    my ($pat, $clss, $nargs) = @_;
 
     print("location ~ $pat\n");
     print("{\n");
@@ -22,7 +22,10 @@ sub route
         print("fastcgi_param REQUEST_METHOD  \$request_method;\n");
         print("fastcgi_param SCRIPT_FILENAME {{ out }}/www/index.php;\n");
 
-        print("fastcgi_param X_ATELIR_REQUEST_HANDLER_CLASS $cls;\n");
+        for (keys(%$clss)) {
+            my $cls = $clss->{$_};
+            print("fastcgi_param X_ATELIR_REQUEST_HANDLER_CLASSES[$_] $cls;\n");
+        }
         for (1 .. $nargs) {
             print("fastcgi_param X_ATELIR_ARGUMENTS[$_] \$$_;\n");
         }
@@ -33,13 +36,29 @@ sub route
 }
 
 # Front page.
-route('GET', '^/$', 'Atelir\ReadFrontPage\Web', 0);
+route(
+    '^/$',
+    { GET => 'Atelir\ReadFrontPage\Web' },
+    0,
+);
 
 # Log in.
-route('POST', '^/log-in$', 'Atelir\LogIn\Web\Submit', 0);
+route(
+    '^/log-in$',
+    { POST => 'Atelir\LogIn\Web\Submit' },
+    0,
+);
 
 # Read post.
-route('GET', '^/post/([a-z0-9-]+)/([a-z0-9-]+)/([a-z0-9-]+)$', 'Atelir\ReadPost\Web', 3);
+route(
+    '^/post/([a-z0-9-]+)/([a-z0-9-]+)/([a-z0-9-]+)$',
+    { GET => 'Atelir\ReadPost\Web' },
+    3,
+);
 
 # Render avatar.
-route('GET', '^/avatar/([a-z0-9-]+)$', 'Atelir\RenderAvatar\Web', 1);
+route(
+    '^/avatar/([a-z0-9-]+)$',
+    { GET => 'Atelir\RenderAvatar\Web' },
+    1,
+);

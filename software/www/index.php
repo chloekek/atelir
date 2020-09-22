@@ -14,10 +14,19 @@ require_once __DIR__ . '/../supplier/autoload.php';
 # Assemble facilities.
 $facilities = new Atelir\Utility\Facilities();
 
-# Invoke main method.
-$requestHandlerClass = $_SERVER['X_ATELIR_REQUEST_HANDLER_CLASS'];
+# Find request handler class.
+$requestHandlerClasses = $_SERVER['X_ATELIR_REQUEST_HANDLER_CLASSES'];
+$requestHandlerClass =
+    $requestHandlerClasses[$_SERVER['REQUEST_METHOD']] ?? NULL;
+if ($requestHandlerClass === NULL) {
+    header('Status: 405 Method Not Allowed');
+    die('405 Method Not Allowed');
+}
+
+# Find arguments.
 $arguments = $_SERVER['X_ATELIR_ARGUMENTS'] ?? [];
 ksort($arguments);
 
+# Invoke request handler.
 $requestHandler = new $requestHandlerClass($facilities);
 $requestHandler->handleRequest(...$arguments);
