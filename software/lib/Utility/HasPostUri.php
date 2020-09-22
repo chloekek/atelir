@@ -14,6 +14,6 @@ trait HasPostUri
         return '/post' .
                '/' . $this->userSlug .
                '/' . $this->projectSlug .
-               '/' . $this->slug;
+               '/' . $this->postSlug;
     }
 }

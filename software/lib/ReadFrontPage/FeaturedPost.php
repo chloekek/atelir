@@ -16,7 +16,7 @@ class FeaturedPost
     public string $userName;
     public string $projectSlug;
     public string $projectName;
-    public string $slug;
+    public string $postSlug;
     public string $title;
     public string $content;
 
@@ -26,7 +26,7 @@ class FeaturedPost
         string $userName,
         string $projectSlug,
         string $projectName,
-        string $slug,
+        string $postSlug,
         string $title,
         string $content
     )
@@ -35,7 +35,7 @@ class FeaturedPost
         $this->userName = $userName;
         $this->projectSlug = $projectSlug;
         $this->projectName = $projectName;
-        $this->slug = $slug;
+        $this->postSlug = $postSlug;
         $this->title = $title;
         $this->content = $content;
     }
