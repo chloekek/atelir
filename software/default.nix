@@ -42,10 +42,15 @@ in
                 s:{{ postgresqlPort }}:$postgresqlPort:g
             SED
 
+            # Substitute variables into routes file.
+            sed --in-place --file=- build/routes.pl <<SED
+                s:{{ phpfpmPort }}:$phpfpmPort:g
+                s:{{ out }}:$out:g
+            SED
+
             # Substitute variables into Nginx configuration file.
             sed --in-place --file=- etc/nginx.conf <<SED
                 s:{{ nginxPort }}:$nginxPort:g
-                s:{{ phpfpmPort }}:$phpfpmPort:g
                 s:{{ out }}:$out:g
             SED
 

@@ -13,11 +13,21 @@ sub route
 {
     my ($meth, $pat, $cls, $nargs) = @_;
 
-    print("if (\$request_method = $meth) {\n");
+    print("location ~ $pat\n");
+    print("{\n");
 
-        print("rewrite $pat /index.php?requestHandlerClass=$cls");
-        print("&arguments[]=\$$_") for 1 .. $nargs;
-        print("? last;\n");
+        print("fastcgi_param CONTENT_LENGTH  \$content_length;\n");
+        print("fastcgi_param CONTENT_TYPE    \$content_type;\n");
+        print("fastcgi_param QUERY_STRING    \$query_string;\n");
+        print("fastcgi_param REQUEST_METHOD  \$request_method;\n");
+        print("fastcgi_param SCRIPT_FILENAME {{ out }}/www/index.php;\n");
+
+        print("fastcgi_param X_ATELIR_REQUEST_HANDLER_CLASS $cls;\n");
+        for (1 .. $nargs) {
+            print("fastcgi_param X_ATELIR_ARGUMENTS[$_] \$$_;\n");
+        }
+
+        print("fastcgi_pass 127.0.0.1:{{ phpfpmPort }};\n");
 
     print("}\n");
 }

@@ -15,6 +15,9 @@ require_once __DIR__ . '/../supplier/autoload.php';
 $facilities = new Atelir\Utility\Facilities();
 
 # Invoke main method.
-$requestHandlerClass = $_GET['requestHandlerClass'];
+$requestHandlerClass = $_SERVER['X_ATELIR_REQUEST_HANDLER_CLASS'];
+$arguments = $_SERVER['X_ATELIR_ARGUMENTS'] ?? [];
+ksort($arguments);
+
 $requestHandler = new $requestHandlerClass($facilities);
-$requestHandler->handleRequest(...$_GET['arguments'] ?? []);
+$requestHandler->handleRequest(...$arguments);
