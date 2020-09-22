@@ -10,7 +10,9 @@ namespace Atelir\Utility;
 final
 class Facilities
 {
+    public Layout $layout;
     public Postgresql $postgresql;
+    public Session $session;
 
     public
     function __construct()
@@ -22,5 +24,9 @@ class Facilities
             password=atelir_software
             dbname=atelir
         ');
+
+        $this->session = new Session();
+
+        $this->layout = new Layout($this->session);
     }
 }

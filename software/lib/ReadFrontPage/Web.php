@@ -15,7 +15,7 @@ class Web
     function handleRequest(): void
     {
         $fps = FeaturedPost::fetch($this->facilities->postgresql);
-        Layout::layout('Home', function() use($fps): void {
+        $this->facilities->layout->layout('Home', function() use($fps): void {
             foreach ($fps as $fp) {
                 $fp->renderPost($fp->postUri());
             }

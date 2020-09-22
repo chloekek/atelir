@@ -10,6 +10,7 @@ let
         p.json
         p.openssl
         p.pgsql
+        p.session
         p.simplexml
         p.tokenizer
     ];

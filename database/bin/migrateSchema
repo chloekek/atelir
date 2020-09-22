@@ -27,6 +27,8 @@ psql <<'SQL'
 
         name varchar NOT NULL,
 
+        password_hash varchar NOT NULL,
+
         CONSTRAINT users_pk
             PRIMARY KEY (user_slug)
     );

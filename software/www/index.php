@@ -11,6 +11,9 @@ set_error_handler(
 # Set up the autoloader.
 require_once __DIR__ . '/../supplier/autoload.php';
 
+# Start sessions.
+session_start();
+
 # Assemble facilities.
 $facilities = new Atelir\Utility\Facilities();
 

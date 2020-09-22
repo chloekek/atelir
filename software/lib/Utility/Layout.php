@@ -10,15 +10,19 @@ namespace Atelir\Utility;
 final
 class Layout
 {
-    private
-    function __construct()
+    private Session $session;
+
+    public
+    function __construct(Session $session)
     {
+        $this->session = $session;
     }
 
     /** @param callable():void $body */
-    public static
+    public
     function layout(string $title, callable $body): void
     {
+        $authenticatedUserSlug = $this->session->getAuthenticatedUserSlug();
         ?><!DOCTYPE html><?php
         ?><meta charset="utf-8"><?php
         ?><title><?= \htmlentities($title) ?> &mdash; Atelir</title><?php
@@ -29,11 +33,17 @@ class Layout
                 ?><input type="search" name="q"><?php
                 ?><button>Search</button><?php
             ?></form><?php
-            ?><form class="-log-in" action="/log-in" method="post"><?php
-                ?><input type="text" name="username"><?php
-                ?><input type="password" name="password"><?php
-                ?><button>Log In</button><?php
-            ?></form><?php
+            ?><?php if ($authenticatedUserSlug === NULL): ?><?php
+                ?><form class="-log-in" action="/log-in" method="post"><?php
+                    ?><input type="text" name="username"><?php
+                    ?><input type="password" name="password"><?php
+                    ?><button>Log in</button><?php
+                ?></form><?php
+            ?><?php else: ?><?php
+                ?><p class="-log-in"><?php
+                    ?>Hello, <?= \htmlentities($authenticatedUserSlug) ?>!<?php
+                ?></p><?php
+            ?><?php endif; ?><?php
             ?><nav class="-topics"><?php
                 ?><ul><?php
                     ?><li><a href="/topics/gardening">Gardening</a><?php

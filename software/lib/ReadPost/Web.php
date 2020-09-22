@@ -22,7 +22,7 @@ class Web
         $p = Post::fetch($pg, $userSlug, $projectSlug, $postSlug);
         if ($p === NULL)
             die('TODO: Not Found');
-        Layout::layout($p->title, function() use($p): void {
+        $this->facilities->layout->layout($p->title, function() use($p): void {
             $p->renderPost();
         });
     }
