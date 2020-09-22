@@ -17,8 +17,11 @@ class Submit
         $ok = $this->authenticate($userSlug, $password);
         if ($ok) {
             $this->facilities->session->setAuthenticatedUserSlug($userSlug);
+            header('Status: 303 See Other');
+            header('Location: /');
             echo 'yes';
         } else {
+            header('Status: 401 Unauthorized');
             echo 'no';
         }
     }
