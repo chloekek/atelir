@@ -2,23 +2,17 @@
 declare(strict_types = 1);
 namespace Atelir\ReadPost;
 
-use Atelir\Utility\Facilities;
+use Atelir\Utility\CanHandleRequest;
 use Atelir\Utility\Layout;
 use Atelir\Utility\RenderPost;
 
 final
 class Web
 {
-    private Facilities $facilities;
+    use CanHandleRequest;
 
     public
-    function __construct(Facilities $facilities)
-    {
-        $this->facilities = $facilities;
-    }
-
-    public
-    function main(
+    function handleRequest(
         string $userSlug,
         string $projectSlug,
         string $postSlug

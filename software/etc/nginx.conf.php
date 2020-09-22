@@ -41,7 +41,7 @@ http
             {
                 $arguments = array_map(fn($i) => "&arguments[]=\$$i",
                                        $nargs > 0 ? range(1, $nargs) : []);
-                return "rewrite $pat /index.php?mainClass=$cls" .
+                return "rewrite $pat /index.php?requestHandlerClass=$cls" .
                        implode('', $arguments) .
                        "? last;\n";
             }

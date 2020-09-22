@@ -2,11 +2,13 @@
 declare(strict_types = 1);
 namespace Atelir\RenderAvatar;
 
-use Atelir\Utility\Facilities;
+use Atelir\Utility\CanHandleRequest;
 
 final
 class Web
 {
+    use CanHandleRequest;
+
     private const COLORS = [
         '#001f3f', '#0074D9', '#7FDBFF', '#39CCCC',
         '#3D9970', '#2ECC40', '#01FF70', '#FFDC00',
@@ -14,16 +16,8 @@ class Web
         '#B10DC9',
     ];
 
-    private Facilities $facilities;
-
     public
-    function __construct(Facilities $facilities)
-    {
-        $this->facilities = $facilities;
-    }
-
-    public
-    function main(string $userSlug): void
+    function handleRequest(string $userSlug): void
     {
         $hash = \sha1($userSlug, TRUE);
 
