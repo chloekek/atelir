@@ -1,4 +1,4 @@
-{ makeWrapper, nginx, php, postgresql_12, sassc, stdenvNoCC }:
+{ makeWrapper, nginx, perl, php, postgresql_12, sassc, stdenvNoCC }:
 
 { ports }:
 
@@ -22,7 +22,7 @@ in
 
         buildInputs = [
             makeWrapper
-            phpWithExtensions
+            perl
             phpWithExtensions.packages.composer
             phpWithExtensions.packages.psalm
             sassc
@@ -43,7 +43,7 @@ in
             SED
 
             # Substitute variables into Nginx configuration file.
-            sed --in-place --file=- etc/nginx.conf.php <<SED
+            sed --in-place --file=- etc/nginx.conf <<SED
                 s:{{ nginxPort }}:$nginxPort:g
                 s:{{ phpfpmPort }}:$phpfpmPort:g
                 s:{{ out }}:$out:g
@@ -60,8 +60,8 @@ in
                 s:{{ out }}:$out:g
             SED
 
-            # Process Nginx configuration file with PHP.
-            php etc/nginx.conf.php > etc/nginx.conf
+            # Process routes file.
+            perl build/routes.pl > etc/routes.conf
 
             # Compile Sass.
             sassc --precision=10 www/style.scss www/style.css

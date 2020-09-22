@@ -29,6 +29,11 @@ class Layout
                 ?><input type="search" name="q"><?php
                 ?><button>Search</button><?php
             ?></form><?php
+            ?><form class="-log-in" action="/log-in" method="post"><?php
+                ?><input type="text" name="username"><?php
+                ?><input type="password" name="password"><?php
+                ?><button>Log In</button><?php
+            ?></form><?php
             ?><nav class="-topics"><?php
                 ?><ul><?php
                     ?><li><a href="/topics/gardening">Gardening</a><?php

@@ -36,7 +36,7 @@ body
 .atelir-header
 {
     display: grid;
-    grid-template-areas: "logo search" "topics topics";
+    grid-template-areas: "logo search log-in" "topics topics topics";
 
     & > .-logo
     {
@@ -47,6 +47,8 @@ body
     }
 
     & > .-search { grid-area: search; }
+
+    & > .-log-in { grid-area: log-in; }
 
     & > .-topics
     {

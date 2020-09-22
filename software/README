@@ -9,10 +9,10 @@ for the web server (Nginx) and for the application server (PHP-FPM).
 The Nix derivation generates wrappers for nginx and php-fpm.
 These wrappers pass the correct configuration file paths.
 
-The file etc/nginx.conf.php defines the routes for the application.
+The file build/routes.pl defines the routes for the application.
 All requests are subsequently handled by www/index.php.
-The routes pass it the mainClass argument, and the arguments argument.
-These arguments are used to select a main class and call its main method.
+The routes pass it the requestHandlerClass argument, and the arguments argument.
+These arguments are used to select a class and call its handleRequest method.
 
 Composer [1] is used to generate a PHP autoloader [2].
 Psalm [3] is used for static type checking of PHP code.
