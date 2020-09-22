@@ -10,6 +10,7 @@ trait CanHandleRequest
 {
     private Facilities $facilities;
 
+    /** @psalm-pure */
     public
     function __construct(Facilities $facilities)
     {

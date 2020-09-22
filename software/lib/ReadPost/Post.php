@@ -16,6 +16,7 @@ class Post
     public string $title;
     public string $content;
 
+    /** @psalm-pure */
     public
     function __construct(
         string $userSlug,

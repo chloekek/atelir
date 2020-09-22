@@ -8,6 +8,7 @@ namespace Atelir\Utility;
  */
 trait HasPostUri
 {
+    /** @psalm-pure */
     final public
     function postUri(): string
     {
