@@ -43,6 +43,9 @@ class Layout
                 ?><form class="-me" action="/log-out" method="post"><?php
                     ?>Hello, <?= \htmlentities($authenticatedUserSlug) ?>!<?php
                     ?><button>Log out</button><?php
+                    ?><a href="/new-project">New project</a><?php
+                    ?><a href="/new-post">New post</a><?php
+                    ?><a href="/drafts">Drafts</a><?php
                 ?></form><?php
             ?><?php endif; ?><?php
             ?><nav class="-topics"><?php
