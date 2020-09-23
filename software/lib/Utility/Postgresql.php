@@ -28,6 +28,19 @@ class Postgresql
     function query(string $sql, array $params = []): iterable
     {
         $result = \pg_query_params($this->raw, $sql, $params);
+        return self::queryResult($result);
+    }
+
+    /**
+     * Generator that iterates query results.
+     * This is a separate function, so that query can execute the statement
+     * regardless of whether the generator is consumed.
+     * @param resource $result
+     * @return iterable<int,array<int,?string>>
+     */
+    private static
+    function queryResult($result): iterable
+    {
         for (;;) {
             /** @var false|array<int,?string> */
             $row = \pg_fetch_row($result);
