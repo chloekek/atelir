@@ -35,6 +35,13 @@ sub route
     print("}\n");
 }
 
+# Configure account.
+route(
+    '^/account$',
+    { GET => 'Atelir\ConfigureAccount\Web\Form' },
+    0,
+);
+
 # Front page.
 route(
     '^/$',
