@@ -72,6 +72,27 @@ body
     line-height: $line-height;
 }
 
+/**
+ * Mixin for larger scale elements that have their own titles.
+ * For instance, the “New project” page.
+ * Do not use for posts.
+ */
+@mixin atelir-functional
+{
+    & > h1
+    {
+        font-family: $font-interface;
+        font-size: $size-interface;
+        font-weight: bold;
+        line-height: $line-height;
+    }
+}
+
+.atelir-new-project
+{
+    @include atelir-functional;
+}
+
 .atelir-post
 {
     display: grid;

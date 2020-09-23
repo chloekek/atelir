@@ -42,6 +42,13 @@ route(
     0,
 );
 
+# Create project.
+route(
+    '^/new-project$',
+    { GET => 'Atelir\CreateProject\Web\Form' },
+    0,
+);
+
 # Front page.
 route(
     '^/$',
