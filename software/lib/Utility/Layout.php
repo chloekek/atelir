@@ -50,8 +50,8 @@ class Layout
             ?><?php endif; ?><?php
             ?><nav class="-topics"><?php
                 ?><ul><?php
-                    ?><li><a href="/topics/gardening">Gardening</a><?php
-                    ?><li><a href="/topics/technology">Technology</a><?php
+                    ?><li><a href="/topic/gardening">Gardening</a><?php
+                    ?><li><a href="/topic/technology">Technology</a><?php
                 ?></ul><?php
             ?></nav><?php
         ?></header><?php
