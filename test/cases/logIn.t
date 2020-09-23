@@ -24,6 +24,7 @@ sub logIn
     my ($statusCode, $location) = logIn('chloekek', 'hunter2');
     is($statusCode, 303);
     is($location, '/');
+    # TODO: Test that user is logged in.
 }
 
 # Test log in with invalid username.
@@ -31,6 +32,7 @@ sub logIn
     my ($statusCode, $location) = logIn('chloek3k', 'hunter2');
     is($statusCode, 401);
     is($location, undef);
+    # TODO: Test that user is logged out.
 }
 
 # Test log in with invalid password.
@@ -38,4 +40,5 @@ sub logIn
     my ($statusCode, $location) = logIn('chloekek', 'hunter3');
     is($statusCode, 401);
     is($location, undef);
+    # TODO: Test that user is logged out.
 }

@@ -49,6 +49,13 @@ route(
     0,
 );
 
+# Log out.
+route(
+    '^/log-out$',
+    { POST => 'Atelir\LogOut\Web' },
+    0,
+);
+
 # Read post.
 route(
     '^/post/([a-z0-9-]+)/([a-z0-9-]+)/([a-z0-9-]+)$',

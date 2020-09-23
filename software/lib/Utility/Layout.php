@@ -34,15 +34,16 @@ class Layout
                 ?><button>Search</button><?php
             ?></form><?php
             ?><?php if ($authenticatedUserSlug === NULL): ?><?php
-                ?><form class="-log-in" action="/log-in" method="post"><?php
+                ?><form class="-me" action="/log-in" method="post"><?php
                     ?><input type="text" name="username"><?php
                     ?><input type="password" name="password"><?php
                     ?><button>Log in</button><?php
                 ?></form><?php
             ?><?php else: ?><?php
-                ?><p class="-log-in"><?php
+                ?><form class="-me" action="/log-out" method="post"><?php
                     ?>Hello, <?= \htmlentities($authenticatedUserSlug) ?>!<?php
-                ?></p><?php
+                    ?><button>Log out</button><?php
+                ?></form><?php
             ?><?php endif; ?><?php
             ?><nav class="-topics"><?php
                 ?><ul><?php

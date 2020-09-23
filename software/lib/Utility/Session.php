@@ -6,7 +6,7 @@ final
 class Session
 {
     public
-    function setAuthenticatedUserSlug(string $userSlug): void
+    function setAuthenticatedUserSlug(?string $userSlug): void
     {
         $_SESSION['authenticatedUserSlug'] = $userSlug;
     }

@@ -17,11 +17,11 @@ class Submit
         $ok = $this->authenticate($userSlug, $password);
         if ($ok) {
             $this->facilities->session->setAuthenticatedUserSlug($userSlug);
-            header('Status: 303 See Other');
-            header('Location: /');
+            \header('Status: 303 See Other');
+            \header('Location: /');
             echo 'yes';
         } else {
-            header('Status: 401 Unauthorized');
+            \header('Status: 401 Unauthorized');
             echo 'no';
         }
     }
@@ -29,19 +29,22 @@ class Submit
     private
     function authenticate(string $userSlug, string $password): bool
     {
+        $hash = $this->fetchPasswordHash($userSlug);
+        if ($hash === NULL)
+            return FALSE;
+        return \password_verify($password, $hash);
+    }
+
+    private
+    function fetchPasswordHash(string $userSlug): ?string
+    {
         $row = $this->facilities->postgresql->queryFirst('
             SELECT users.password_hash
             FROM atelir.users
             WHERE users.user_slug = $1
         ', [$userSlug]);
-
         if ($row === NULL)
-            return FALSE;
-
-        assert($row[0] !== NULL);
-        if (!\password_verify($password, $row[0]))
-            return FALSE;
-
-        return TRUE;
+            return NULL;
+        return $row[0];
     }
 }
